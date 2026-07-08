@@ -79,3 +79,12 @@ Each service is independently developed, deployed, and scaled.
 
 Developed by Shahab Tolouee
 Senior .NET Full Stack Engineer
+
+
+--
+
+## Development Ports
+
+Catalog PostgreSQL : localhost:5433
+Redis              : localhost:6379
+RabbitMQ           : localhost:5672
