@@ -1,4 +1,6 @@
-﻿using Catalog.Infrastructure.Persistence;
+﻿using Catalog.Application.Contracts;
+using Catalog.Infrastructure.Persistence;
+using Catalog.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,8 @@ public static class DependencyInjection
                 options.UseNpgsql(
                     configuration.GetConnectionString("CatalogDb"));
             });
+
+        services.AddScoped<IProductRepository, ProductRepository>();
 
 
         return services;
