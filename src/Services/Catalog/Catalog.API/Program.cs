@@ -1,8 +1,17 @@
 using Catalog.API.Endpoints;
+using Catalog.API.Middlewares;
 using Catalog.Application;
 using Catalog.Infrastructure;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
+
+Log.Logger =
+    new LoggerConfiguration()
+        .Enrich.FromLogContext()
+        .Enrich.WithMachineName()
+        .WriteTo.Console()
+        .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +34,13 @@ builder.Services.AddSwaggerGen(options =>
         });
 });
 
+builder.Services.AddExceptionHandler
+    <GlobalExceptionHandler>();
+
+builder.Host.UseSerilog();
+
+builder.Services.AddProblemDetails();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -34,11 +50,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/health",
-() => Results.Ok("Catalog API is running"))
-.WithTags("Health");
-
-
 app.MapProductEndpoints();
+
+app.UseExceptionHandler();
+
+app.UseSerilogRequestLogging();
 
 app.Run();

@@ -21,11 +21,16 @@ public static class ProductEndpoints
         group.MapPost(
             "/",
             async (
-                CreateProductCommand command,
-                ISender sender) =>
+            CreateProductCommand command,
+            ISender sender,
+            CancellationToken cancellationToken) =>
             {
 
-                var id = await sender.Send(command);
+                var id =
+                 await sender.Send(
+                    command,
+                    cancellationToken);
+
 
                 return Results.Created(
                     $"/api/products/{id}",
@@ -36,12 +41,15 @@ public static class ProductEndpoints
 
         group.MapGet(
             "/",
-            async (ISender sender) =>
+            async (
+            ISender sender,
+            CancellationToken cancellationToken) =>
             {
 
                 var products =
                     await sender.Send(
-                        new GetProductsQuery());
+                        new GetProductsQuery(),
+                        cancellationToken);
 
 
                 return Results.Ok(products);

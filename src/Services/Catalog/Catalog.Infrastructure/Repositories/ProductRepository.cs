@@ -32,7 +32,6 @@ public class ProductRepository
         await _context.SaveChangesAsync(
             cancellationToken);
 
-
         return product;
     }
 
