@@ -41,7 +41,5 @@ public class CreateProductHandler
 
 
         return product.Id;
-
     }
-
 }

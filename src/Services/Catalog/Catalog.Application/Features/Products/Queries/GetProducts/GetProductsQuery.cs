@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Catalog.Application.Features.Products.Dtos;
+using MediatR;
 
-namespace Catalog.Application.Features.Products.Queries.GetProducts
-{
-    internal class GetProductsQuery
-    {
-    }
-}
+
+namespace Catalog.Application.Features.Products.Queries.GetProducts;
+
+
+public record GetProductsQuery()
+    : IRequest<List<ProductDto>>;

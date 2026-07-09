@@ -1,22 +1,17 @@
+using Catalog.API.Endpoints;
 using Catalog.Application;
-using Catalog.Application.Features.Products.Commands.CreateProduct;
 using Catalog.Infrastructure;
-using MediatR;
 using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddApplication();
 
 builder.Services.AddInfrastructure(
     builder.Configuration);
 
-
-builder.Services.AddApplication();
-
-
 builder.Services.AddEndpointsApiExplorer();
-
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -30,9 +25,7 @@ builder.Services.AddSwaggerGen(options =>
         });
 });
 
-
 var app = builder.Build();
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -41,28 +34,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
 app.MapGet("/health",
 () => Results.Ok("Catalog API is running"))
 .WithTags("Health");
 
 
-app.MapPost(
-"/api/products",
-async (
-CreateProductCommand command,
-ISender sender) =>
-{
-
-    var id = await sender.Send(command);
-
-    return Results.Created(
-        $"/api/products/{id}",
-        id);
-
-})
-.WithName("CreateProduct")
-.WithTags("Products");
-
+app.MapProductEndpoints();
 
 app.Run();
