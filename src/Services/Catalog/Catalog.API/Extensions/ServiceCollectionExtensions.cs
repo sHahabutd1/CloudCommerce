@@ -1,4 +1,5 @@
 ﻿using Catalog.API.Middlewares;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -43,6 +44,19 @@ public static class ServiceCollectionExtensions
 
 
         builder.Services.AddProblemDetails();
+
+        builder.Services
+            .AddHealthChecks()
+
+            .AddCheck(
+                "self",
+                () => HealthCheckResult.Healthy(),
+                tags: ["live"])
+
+            .AddNpgSql(
+                builder.Configuration
+                    .GetConnectionString("CatalogDb")!,
+                tags: ["ready"]);
 
 
         builder.Host.UseSerilog(
