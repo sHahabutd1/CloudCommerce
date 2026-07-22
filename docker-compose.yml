@@ -1,6 +1,6 @@
 services:
 
-  postgres:
+  catalog-db:
     image: postgres:18
     container_name: cloudcommerce_catalog_postgres
 
@@ -15,7 +15,39 @@ services:
     volumes:
       - catalog_postgres_data:/var/lib/postgresql
 
+    networks:
+      - cloudcommerce-network
+
+
+  catalog-api:
+    build:
+      context: .
+      dockerfile: src/Services/Catalog/Catalog.API/Dockerfile
+
+    container_name: cloudcommerce_catalog_api
+
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:8080
+
+      ConnectionStrings__CatalogDb: Host=catalog-db;Port=5432;Database=CatalogDb;Username=postgres;Password=postgres
+
+    ports:
+      - "5001:8080"
+
+    depends_on:
+      - catalog-db
+
+    networks:
+      - cloudcommerce-network
+
 
 volumes:
 
   catalog_postgres_data:
+
+
+networks:
+
+  cloudcommerce-network:
+    driver: bridge

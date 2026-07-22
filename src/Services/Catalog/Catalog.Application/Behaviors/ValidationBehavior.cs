@@ -22,13 +22,11 @@ public class ValidationBehavior<TRequest, TResponse>
     }
 
 
-
     public async Task<TResponse> Handle(
         TRequest request,
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-
 
         if (_validators.Any())
         {
@@ -36,7 +34,6 @@ public class ValidationBehavior<TRequest, TResponse>
             var context =
                 new ValidationContext<TRequest>(
                     request);
-
 
             var results =
                 await Task.WhenAll(
@@ -47,13 +44,11 @@ public class ValidationBehavior<TRequest, TResponse>
                             cancellationToken)));
 
 
-
             var failures =
                 results
                     .SelectMany(x => x.Errors)
                     .Where(x => x != null)
                     .ToList();
-
 
 
             if (failures.Any())
@@ -64,10 +59,6 @@ public class ValidationBehavior<TRequest, TResponse>
 
         }
 
-
-
         return await next();
-
     }
-
 }
