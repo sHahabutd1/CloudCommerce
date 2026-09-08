@@ -1,4 +1,4 @@
-﻿using Catalog.API.Endpoints;
+﻿using Catalog.API.Endpoints.Products;
 using Catalog.API.Middlewares;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;

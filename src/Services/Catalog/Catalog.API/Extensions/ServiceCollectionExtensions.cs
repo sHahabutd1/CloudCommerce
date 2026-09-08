@@ -67,6 +67,7 @@ public static class ServiceCollectionExtensions
                         context.Configuration);
             });
 
+        builder.Services.AddObservability();
 
         return builder;
 
