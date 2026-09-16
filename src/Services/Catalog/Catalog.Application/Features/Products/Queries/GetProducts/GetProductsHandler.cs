@@ -6,7 +6,7 @@ using MediatR;
 namespace Catalog.Application.Features.Products.Queries.GetProducts;
 
 
-public class GetProductsHandler
+internal sealed class GetProductsHandler
     : IRequestHandler<GetProductsQuery, List<ProductDto>>
 {
 

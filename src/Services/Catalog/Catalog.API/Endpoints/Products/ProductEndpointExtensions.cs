@@ -9,7 +9,7 @@ public static class ProductEndpointExtensions
 
         app.MapGetProductsEndpoint();
 
-        //app.MapGetProductByIdEndpoint();
+        app.MapGetProductByIdEndpoint();
 
         return app;
     }

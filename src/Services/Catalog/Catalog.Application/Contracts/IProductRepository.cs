@@ -15,4 +15,8 @@ public interface IProductRepository
     Task<List<Product>> GetAllAsync(
         CancellationToken cancellationToken);
 
+    Task<Product?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken);
+
 }

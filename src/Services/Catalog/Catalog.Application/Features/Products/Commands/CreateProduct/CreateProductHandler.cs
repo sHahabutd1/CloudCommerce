@@ -6,7 +6,7 @@ using MediatR;
 namespace Catalog.Application.Features.Products.Commands.CreateProduct;
 
 
-public class CreateProductHandler
+internal sealed class CreateProductHandler
     : IRequestHandler<CreateProductCommand, Guid>
 {
 

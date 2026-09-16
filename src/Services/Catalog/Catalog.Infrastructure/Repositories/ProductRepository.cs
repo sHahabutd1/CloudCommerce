@@ -42,7 +42,20 @@ public class ProductRepository
     {
 
         return await _context.Products
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
+    }
+
+
+    public async Task<Product?> GetByIdAsync(
+        Guid id,
+        CancellationToken cancellationToken)
+    {
+        return await _context.Products
+            .AsNoTracking()
+            .FirstOrDefaultAsync(
+                p => p.Id == id,
+                cancellationToken);
     }
 
 }
