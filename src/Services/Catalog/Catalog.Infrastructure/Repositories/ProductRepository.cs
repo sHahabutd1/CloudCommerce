@@ -52,10 +52,15 @@ public class ProductRepository
         CancellationToken cancellationToken)
     {
         return await _context.Products
-            .AsNoTracking()
             .FirstOrDefaultAsync(
                 p => p.Id == id,
                 cancellationToken);
     }
 
+    public async Task SaveChangesAsync(
+        CancellationToken cancellationToken)
+    {
+        await _context.SaveChangesAsync(
+            cancellationToken);
+    }
 }

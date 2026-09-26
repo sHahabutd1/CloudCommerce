@@ -9,7 +9,7 @@ public static class GetProductsEndpoint
         this IEndpointRouteBuilder app)
     {
         app.MapGet(
-            "/",
+            "/api/products",
             async (
             ISender sender,
             CancellationToken cancellationToken) =>

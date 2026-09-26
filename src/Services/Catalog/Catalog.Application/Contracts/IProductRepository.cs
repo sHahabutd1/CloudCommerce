@@ -19,4 +19,7 @@ public interface IProductRepository
         Guid id,
         CancellationToken cancellationToken);
 
+    Task SaveChangesAsync(
+        CancellationToken cancellationToken);
+
 }

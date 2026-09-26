@@ -1,5 +1,4 @@
 ﻿namespace Catalog.Domain.Entities;
-
 public class Product
 {
     public Guid Id { get; private set; }
@@ -33,10 +32,22 @@ public class Product
     }
 
 
+    public void Update(
+        string name,
+        string description,
+        decimal price)
+    {
+        Name = name;
+        Description = description;
+        Price = price;
+    }
+
+
     public void UpdateStock(int quantity)
     {
         if (quantity < 0)
-            throw new ArgumentException("Invalid stock quantity");
+            throw new ArgumentException(
+                "Invalid stock quantity");
 
         Stock = quantity;
     }

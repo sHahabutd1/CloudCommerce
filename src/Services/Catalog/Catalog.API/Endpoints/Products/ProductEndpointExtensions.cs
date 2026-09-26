@@ -11,6 +11,8 @@ public static class ProductEndpointExtensions
 
         app.MapGetProductByIdEndpoint();
 
+        app.MapUpdateProductEndpoint();
+
         return app;
     }
 }
