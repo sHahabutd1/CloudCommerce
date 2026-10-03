@@ -22,4 +22,6 @@ public interface IProductRepository
     Task SaveChangesAsync(
         CancellationToken cancellationToken);
 
+
+    void Delete(Product product);
 }

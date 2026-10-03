@@ -57,6 +57,11 @@ public class ProductRepository
                 cancellationToken);
     }
 
+    public void Delete(Product product)
+    {
+        _context.Products.Remove(product);
+    }
+
     public async Task SaveChangesAsync(
         CancellationToken cancellationToken)
     {

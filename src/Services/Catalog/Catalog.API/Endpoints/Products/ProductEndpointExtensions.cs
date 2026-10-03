@@ -13,6 +13,8 @@ public static class ProductEndpointExtensions
 
         app.MapUpdateProductEndpoint();
 
+        app.MapDeleteProductEndpoint();
+
         return app;
     }
 }
