@@ -5,7 +5,7 @@ using MediatR;
 namespace Catalog.Application.Features.Products.Commands.DeleteProduct;
 
 internal sealed class DeleteProductHandler
-    : IRequestHandler<DeleteProductCommand>
+    : IRequestHandler<DeleteProductCommand,Unit>
 {
     private readonly IProductRepository _repository;
 
@@ -15,7 +15,7 @@ internal sealed class DeleteProductHandler
         _repository = repository;
     }
 
-    public async Task Handle(
+    public async Task<Unit> Handle(
         DeleteProductCommand request,
         CancellationToken cancellationToken)
     {
@@ -34,5 +34,7 @@ internal sealed class DeleteProductHandler
 
         await _repository.SaveChangesAsync(
             cancellationToken);
+
+        return Unit.Value;
     }
 }

@@ -1,17 +1,16 @@
-﻿using Catalog.Application.Contracts;
-using Catalog.Application.Features.Products.Dtos;
+﻿using Catalog.Application.Common.Models;
+using Catalog.Application.Contracts;
+using Catalog.Application.Features.Products.Models;
 using MediatR;
-
 
 namespace Catalog.Application.Features.Products.Queries.GetProducts;
 
-
 internal sealed class GetProductsHandler
-    : IRequestHandler<GetProductsQuery, List<ProductDto>>
+    : IRequestHandler<
+        GetProductsQuery,
+        PagedResult<ProductResponse>>
 {
-
     private readonly IProductRepository _repository;
-
 
     public GetProductsHandler(
         IProductRepository repository)
@@ -19,28 +18,39 @@ internal sealed class GetProductsHandler
         _repository = repository;
     }
 
-
-
-    public async Task<List<ProductDto>> Handle(
+    public async Task<PagedResult<ProductResponse>> Handle(
         GetProductsQuery request,
         CancellationToken cancellationToken)
     {
+        var parameters =
+            new ProductQueryParameters(
+                request.Page,
+                request.PageSize,
+                request.Search,
+                request.MinPrice,
+                request.MaxPrice);
 
-        var products =
-            await _repository.GetAllAsync(
+        var result =
+            await _repository.GetPagedAsync(
+                parameters,
                 cancellationToken);
 
+        return new PagedResult<ProductResponse>
+        {
+            Page = result.Page,
+            PageSize = result.PageSize,
+            TotalCount = result.TotalCount,
 
-        return products
-            .Select(x =>
-                new ProductDto(
-                    x.Id,
-                    x.Name,
-                    x.Description,
-                    x.Price,
-                    x.Stock))
-            .ToList();
-
+            Items = result.Items
+                .Select(product =>
+                    new ProductResponse
+                    {
+                        Id = product.Id,
+                        Name = product.Name,
+                        Description = product.Description,
+                        Price = product.Price
+                    })
+                .ToList()
+        };
     }
-
 }

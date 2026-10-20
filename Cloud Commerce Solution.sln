@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.37411.7
+# Visual Studio Version 18
+VisualStudioVersion = 18.10.12224.181 stable
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -28,6 +28,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Domain", "src\Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.Infrastructure", "src\Services\Catalog\Catalog.Infrastructure\Catalog.Infrastructure.csproj", "{5B6B1C12-136D-ED3C-3400-F52A82685208}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{BB3EF76B-16D0-4C1A-B931-5633700AD9FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{E9DE06FF-ED4C-40C5-AAC5-980132938DD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.IntegrationTests", "Catalog.IntegrationTests\Catalog.IntegrationTests.csproj", "{272E278B-9119-42A3-B1A6-A6F8F3FB734B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +56,10 @@ Global
 		{5B6B1C12-136D-ED3C-3400-F52A82685208}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B6B1C12-136D-ED3C-3400-F52A82685208}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B6B1C12-136D-ED3C-3400-F52A82685208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{272E278B-9119-42A3-B1A6-A6F8F3FB734B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{272E278B-9119-42A3-B1A6-A6F8F3FB734B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{272E278B-9119-42A3-B1A6-A6F8F3FB734B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{272E278B-9119-42A3-B1A6-A6F8F3FB734B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +71,8 @@ Global
 		{AEE5B342-F27B-AFAC-445F-11D54A515CFB} = {4E16A050-68F2-4342-92EB-FBB34F7581F5}
 		{A3A085CE-BD9C-D2EA-D365-A0DE4653D245} = {4E16A050-68F2-4342-92EB-FBB34F7581F5}
 		{5B6B1C12-136D-ED3C-3400-F52A82685208} = {4E16A050-68F2-4342-92EB-FBB34F7581F5}
+		{E9DE06FF-ED4C-40C5-AAC5-980132938DD8} = {BB3EF76B-16D0-4C1A-B931-5633700AD9FF}
+		{272E278B-9119-42A3-B1A6-A6F8F3FB734B} = {E9DE06FF-ED4C-40C5-AAC5-980132938DD8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44054229-8146-453D-BBB2-63924B1CDFC4}

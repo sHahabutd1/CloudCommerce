@@ -5,24 +5,31 @@ namespace Catalog.API.Endpoints.Products;
 
 public static class GetProductsEndpoint
 {
-    public static IEndpointRouteBuilder MapGetProductsEndpoint(
-        this IEndpointRouteBuilder app)
+    public static IEndpointRouteBuilder
+        MapGetProductsEndpoint(
+            this IEndpointRouteBuilder app)
     {
         app.MapGet(
             "/api/products",
             async (
-            ISender sender,
-            CancellationToken cancellationToken) =>
+                [AsParameters] GetProductsRequest request,
+                ISender sender,
+                CancellationToken cancellationToken) =>
             {
+                var query =
+                    new GetProductsQuery(
+                        request.Page,
+                        request.PageSize,
+                        request.Search,
+                        request.MinPrice,
+                        request.MaxPrice);
 
-                var products =
+                var result =
                     await sender.Send(
-                        new GetProductsQuery(),
+                        query,
                         cancellationToken);
 
-
-                return Results.Ok(products);
-
+                return Results.Ok(result);
             })
             .WithName("GetProducts")
             .WithTags("Products");

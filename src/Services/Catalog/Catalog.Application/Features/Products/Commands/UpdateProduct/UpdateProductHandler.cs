@@ -5,7 +5,7 @@ using MediatR;
 namespace Catalog.Application.Features.Products.Commands.UpdateProduct;
 
 internal sealed class UpdateProductHandler
-    : IRequestHandler<UpdateProductCommand>
+    : IRequestHandler<UpdateProductCommand, Unit>
 {
     private readonly IProductRepository _repository;
 
@@ -15,7 +15,7 @@ internal sealed class UpdateProductHandler
         _repository = repository;
     }
 
-    public async Task Handle(
+    public async Task<Unit> Handle(
         UpdateProductCommand request,
         CancellationToken cancellationToken)
     {
@@ -37,5 +37,7 @@ internal sealed class UpdateProductHandler
 
         await _repository.SaveChangesAsync(
             cancellationToken);
+
+        return Unit.Value;
     }
 }

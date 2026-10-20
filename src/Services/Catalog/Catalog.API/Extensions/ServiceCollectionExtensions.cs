@@ -1,6 +1,6 @@
 ﻿using Catalog.API.Middlewares;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Microsoft.OpenApi.Models;
+using Microsoft.OpenApi;
 using Serilog;
 
 

@@ -7,4 +7,4 @@ public sealed record UpdateProductCommand(
     string Name,
     string Description,
     decimal Price)
-    : IRequest;
+    : IRequest<Unit>;
