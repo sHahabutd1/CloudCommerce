@@ -5,4 +5,6 @@ public sealed record GetProductsRequest(
     int PageSize = 10,
     string? Search = null,
     decimal? MinPrice = null,
-    decimal? MaxPrice = null);
+    decimal? MaxPrice = null,
+    string SortBy = "name",
+    string SortDirection = "asc");

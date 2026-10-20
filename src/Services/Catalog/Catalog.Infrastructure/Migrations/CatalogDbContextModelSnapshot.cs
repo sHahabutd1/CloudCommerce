@@ -17,7 +17,7 @@ namespace Catalog.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.17")
+                .HasAnnotation("ProductVersion", "10.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -46,6 +46,12 @@ namespace Catalog.Infrastructure.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name", "Id")
+                        .HasDatabaseName("IX_Products_Name_Id");
+
+                    b.HasIndex("Price", "Id")
+                        .HasDatabaseName("IX_Products_Price_Id");
 
                     b.ToTable("Products");
                 });

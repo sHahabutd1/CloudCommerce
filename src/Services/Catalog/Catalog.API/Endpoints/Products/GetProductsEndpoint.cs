@@ -22,7 +22,9 @@ public static class GetProductsEndpoint
                         request.PageSize,
                         request.Search,
                         request.MinPrice,
-                        request.MaxPrice);
+                        request.MaxPrice,
+                        request.SortBy,
+                        request.SortDirection);
 
                 var result =
                     await sender.Send(

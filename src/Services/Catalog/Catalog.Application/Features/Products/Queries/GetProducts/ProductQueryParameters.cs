@@ -5,4 +5,6 @@ public sealed record ProductQueryParameters(
     int PageSize,
     string? Search,
     decimal? MinPrice,
-    decimal? MaxPrice);
+    decimal? MaxPrice,
+    string SortBy,
+    string SortDirection);

@@ -671,6 +671,94 @@ public class ProductTests
             .Be(HttpStatusCode.NotFound);
     }
 
+    [Fact]
+    public async Task GetProducts_ShouldSortByPriceAscending()
+    {
+        await _databaseResetter.ResetProductsAsync();
+
+        foreach (var item in new[]
+        {
+        CreateProductPayload(name: "Expensive", price: 300),
+        CreateProductPayload(name: "Cheap", price: 50),
+        CreateProductPayload(name: "Medium", price: 150)
+    })
+        {
+            var createResponse =
+                await _client.PostAsJsonAsync(
+                    "/api/products",
+                    item);
+
+            createResponse.EnsureSuccessStatusCode();
+        }
+
+        var response =
+            await _client.GetAsync(
+                "/api/products?sortBy=price&sortDirection=asc");
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var result =
+            await response.Content.ReadFromJsonAsync<PagedResultDto>();
+
+        result.Should().NotBeNull();
+
+        result!.Items
+            .Select(x => x.Price)
+            .Should()
+            .BeInAscendingOrder();
+    }
+
+    [Fact]
+    public async Task GetProducts_ShouldSortByNameDescending()
+    {
+        await _databaseResetter.ResetProductsAsync();
+
+        foreach (var name in new[]
+        {
+        "Apple",
+        "Samsung",
+        "Google"
+    })
+        {
+            var createResponse =
+                await _client.PostAsJsonAsync(
+                    "/api/products",
+                    CreateProductPayload(name: name));
+
+            createResponse.EnsureSuccessStatusCode();
+        }
+
+        var response =
+            await _client.GetAsync(
+                "/api/products?sortBy=name&sortDirection=desc");
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+
+        var result =
+            await response.Content.ReadFromJsonAsync<PagedResultDto>();
+
+        result.Should().NotBeNull();
+
+        result!.Items
+            .Select(x => x.Name)
+            .Should()
+            .BeInDescendingOrder();
+    }
+
+    [Theory]
+    [InlineData("unknown", "asc")]
+    [InlineData("price", "random")]
+    public async Task GetProducts_ShouldReturnBadRequest_WhenSortParametersAreInvalid(
+    string sortBy,
+    string sortDirection)
+    {
+        var response =
+            await _client.GetAsync(
+                $"/api/products?sortBy={sortBy}&sortDirection={sortDirection}");
+
+        response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+    }
+
 
     // =========================================================
     // Test Helpers

@@ -23,12 +23,14 @@ internal sealed class GetProductsHandler
         CancellationToken cancellationToken)
     {
         var parameters =
-            new ProductQueryParameters(
-                request.Page,
-                request.PageSize,
-                request.Search,
-                request.MinPrice,
-                request.MaxPrice);
+    new ProductQueryParameters(
+        request.Page,
+        request.PageSize,
+        request.Search,
+        request.MinPrice,
+        request.MaxPrice,
+        request.SortBy,
+        request.SortDirection);
 
         var result =
             await _repository.GetPagedAsync(
