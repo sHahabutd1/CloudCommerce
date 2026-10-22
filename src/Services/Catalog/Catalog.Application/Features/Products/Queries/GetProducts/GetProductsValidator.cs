@@ -42,6 +42,9 @@ public sealed class GetProductsValidator
             .Must(BeAllowedSortDirection)
             .WithMessage(
                 "SortDirection must be asc or desc.");
+
+        RuleFor(x => x.Page)
+            .InclusiveBetween(1, 10_000);
     }
 
     private static bool BeAllowedSortField(string? value)

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.10.12224.181 stable
+VisualStudioVersion = 18.10.12224.181
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
@@ -34,6 +34,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{E9DE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catalog.IntegrationTests", "Catalog.IntegrationTests\Catalog.IntegrationTests.csproj", "{272E278B-9119-42A3-B1A6-A6F8F3FB734B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "src\Services\Basket\Basket.API\Basket.API.csproj", "{CB197780-1546-3846-C760-8D86AD2EBCD8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{16D471C3-CEEB-4893-BB39-A650AB6D7C8A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.Application", "src\Services\Basket\Basket.Application\Basket.Application.csproj", "{F6571053-F90A-C33C-72D7-3E75E44A43E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.Domain", "src\Services\Basket\Basket.Domain\Basket.Domain.csproj", "{4FAC5B42-C313-3E61-A5B9-AF0B0D1233B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.Infrastructure", "src\Services\Basket\Basket.Infrastructure\Basket.Infrastructure.csproj", "{0B11DA47-6967-27E3-E80A-84B6F8286CA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +70,22 @@ Global
 		{272E278B-9119-42A3-B1A6-A6F8F3FB734B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{272E278B-9119-42A3-B1A6-A6F8F3FB734B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{272E278B-9119-42A3-B1A6-A6F8F3FB734B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB197780-1546-3846-C760-8D86AD2EBCD8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB197780-1546-3846-C760-8D86AD2EBCD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB197780-1546-3846-C760-8D86AD2EBCD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB197780-1546-3846-C760-8D86AD2EBCD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6571053-F90A-C33C-72D7-3E75E44A43E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6571053-F90A-C33C-72D7-3E75E44A43E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6571053-F90A-C33C-72D7-3E75E44A43E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6571053-F90A-C33C-72D7-3E75E44A43E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FAC5B42-C313-3E61-A5B9-AF0B0D1233B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FAC5B42-C313-3E61-A5B9-AF0B0D1233B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FAC5B42-C313-3E61-A5B9-AF0B0D1233B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FAC5B42-C313-3E61-A5B9-AF0B0D1233B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B11DA47-6967-27E3-E80A-84B6F8286CA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B11DA47-6967-27E3-E80A-84B6F8286CA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B11DA47-6967-27E3-E80A-84B6F8286CA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B11DA47-6967-27E3-E80A-84B6F8286CA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +99,11 @@ Global
 		{5B6B1C12-136D-ED3C-3400-F52A82685208} = {4E16A050-68F2-4342-92EB-FBB34F7581F5}
 		{E9DE06FF-ED4C-40C5-AAC5-980132938DD8} = {BB3EF76B-16D0-4C1A-B931-5633700AD9FF}
 		{272E278B-9119-42A3-B1A6-A6F8F3FB734B} = {E9DE06FF-ED4C-40C5-AAC5-980132938DD8}
+		{CB197780-1546-3846-C760-8D86AD2EBCD8} = {16D471C3-CEEB-4893-BB39-A650AB6D7C8A}
+		{16D471C3-CEEB-4893-BB39-A650AB6D7C8A} = {693FEACF-F319-4049-997E-B9F40A462A98}
+		{F6571053-F90A-C33C-72D7-3E75E44A43E3} = {16D471C3-CEEB-4893-BB39-A650AB6D7C8A}
+		{4FAC5B42-C313-3E61-A5B9-AF0B0D1233B3} = {16D471C3-CEEB-4893-BB39-A650AB6D7C8A}
+		{0B11DA47-6967-27E3-E80A-84B6F8286CA3} = {16D471C3-CEEB-4893-BB39-A650AB6D7C8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {44054229-8146-453D-BBB2-63924B1CDFC4}

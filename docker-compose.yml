@@ -40,11 +40,24 @@ services:
 
     networks:
       - cloudcommerce-network
+  
+  basket-redis:
+    image: redis:8-alpine
+    container_name: cloudcommerce_basket_redis
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - basket_redis_data:/data
+    networks:
+      - cloudcommerce-network
 
 
 volumes:
 
   catalog_postgres_data:
+
+  basket_redis_data:
 
 
 networks:

@@ -2,6 +2,7 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.API.Middlewares;
 
@@ -52,6 +53,14 @@ public sealed class GlobalExceptionHandler
                     Title = "Resource Not Found",
                     Detail = exception.Message
                 },
+
+            DbUpdateConcurrencyException =>
+           new ProblemDetails
+           {
+               Status = StatusCodes.Status409Conflict,
+               Title = "Concurrency conflict",
+               Detail = "The resource was modified by another request. Please reload and try again."
+           },
 
             _ =>
                 new ProblemDetails

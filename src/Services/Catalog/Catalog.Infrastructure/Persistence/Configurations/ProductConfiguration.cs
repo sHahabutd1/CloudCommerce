@@ -35,5 +35,8 @@ public class ProductConfiguration
 
         builder.HasIndex(p => new { p.Price, p.Id })
                 .HasDatabaseName("IX_Products_Price_Id");
+
+        builder.Property<uint>("xmin")
+            .IsRowVersion();
     }
 }

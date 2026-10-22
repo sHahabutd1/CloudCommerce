@@ -1,8 +1,11 @@
-﻿using System.Net;
-using System.Net.Http.Json;
+﻿using Catalog.Infrastructure.Persistence;
 using Catalog.IntegrationTests.Collections;
 using Catalog.IntegrationTests.Infrastructure;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Net;
+using System.Net.Http.Json;
 
 namespace Catalog.IntegrationTests.TestCases.Products;
 
@@ -10,14 +13,15 @@ namespace Catalog.IntegrationTests.TestCases.Products;
 public class ProductTests
 {
     private readonly HttpClient _client;
+
+    private readonly CatalogTestFixture _fixture;
     private readonly DatabaseResetter _databaseResetter;
 
-    public ProductTests(
-        CatalogTestFixture fixture)
+    public ProductTests(CatalogTestFixture fixture)
     {
+        _fixture = fixture;
         _client = fixture.Client;
-        _databaseResetter =
-            new DatabaseResetter(fixture);
+        _databaseResetter = new DatabaseResetter(fixture);
     }
 
 
@@ -758,6 +762,63 @@ public class ProductTests
 
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
     }
+
+
+
+    [Fact]
+    public async Task UpdatingSameProductFromTwoContexts_ShouldThrowConcurrencyException()
+    {
+        // Arrange
+        await _databaseResetter.ResetProductsAsync();
+
+        var createResponse = await _client.PostAsJsonAsync(
+            "/api/products",
+            CreateProductPayload(
+                name: "Concurrency Test Product",
+                price: 100));
+
+        createResponse.EnsureSuccessStatusCode();
+
+        var productId = await createResponse.Content
+            .ReadFromJsonAsync<Guid>();
+
+        // Two independent DbContexts load the same database row.
+        using var scope1 = _fixture.Factory.Services.CreateScope();
+        using var scope2 = _fixture.Factory.Services.CreateScope();
+
+        var dbContext1 = scope1.ServiceProvider
+            .GetRequiredService<CatalogDbContext>();
+
+        var dbContext2 = scope2.ServiceProvider
+            .GetRequiredService<CatalogDbContext>();
+
+        var product1 = await dbContext1.Products
+            .SingleAsync(p => p.Id == productId);
+
+        var product2 = await dbContext2.Products
+            .SingleAsync(p => p.Id == productId);
+
+        // Act: the first context updates and saves successfully.
+        product1.Update(
+            "Updated by Context 1",
+            product1.Description,
+            110);
+
+        await dbContext1.SaveChangesAsync();
+
+        // The second context still holds the original xmin.
+        product2.Update(
+            "Updated by Context 2",
+            product2.Description,
+            120);
+
+        var act = async () => await dbContext2.SaveChangesAsync();
+
+        // Assert
+        await act.Should()
+            .ThrowAsync<DbUpdateConcurrencyException>();
+    }
+
 
 
     // =========================================================
